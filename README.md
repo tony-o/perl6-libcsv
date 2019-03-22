@@ -32,7 +32,7 @@ You can build your own options with the enum (example: `CSV-STRICT +| CSV-EMPTY-
 
 ## Has Headers (`.new(:has-headers) | .read-file(:has-headers)`)
 
-When provided to `.new` this option will set the default parsing mode to assuming there are headers in the CSV file.  This option can be overridden by passing this option to `.read-file`
+When provided to `.new` this option will set the default parsing mode to assuming there are headers in the CSV file.  This option can be overridden by passing this option to `.read-file`.  This option will also cause a hash containing `header => <value>` pairs rather than array to be returned from parsing
 
 ## Auto Decode (`.new(:auto-decode)`)
 

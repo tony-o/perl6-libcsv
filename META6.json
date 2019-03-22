@@ -7,11 +7,12 @@
   "auth"          : "github:tony-o",
   "description"   : "libcsv wrapper + Parser",
   "source-url"    : "git://github.com/tony-o/perl6-libcsv.git",
-  "depends"       : [ "LibraryMake" ],
-  "build-depends" : [ ],
-  "test-depends"  : [ "" ],
+  "depends"       : [ ],
+  "build-depends" : [ "LibraryMake" ],
+  "test-depends"  : [ ],
   "provides"      : {
-    "Text::LibCSV": "lib/Text/LibCSV.pm6" 
+    "Text::CSV::LibCSV": "lib/Text/CSV/LibCSV.pm6",
+    "Text::CSV::LibCSV::Native": "lib/Text/CSV/LibCSV/Native.pm6"
   },
   "resources" : [
     "lib/libcsvwrap.so",
