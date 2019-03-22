@@ -1,0 +1,21 @@
+{
+  "authors"       : [ "tony-o" ],
+  "perl"          : "6.*",
+  "name"          : "Text::CSV::LibCSV",
+  "tags"          : [ "csv", "parser", "native" ], 
+  "version"       : "0.0.1",
+  "auth"          : "github:tony-o",
+  "description"   : "libcsv wrapper + Parser",
+  "source-url"    : "git://github.com/tony-o/perl6-libcsv.git",
+  "depends"       : [ "LibraryMake" ],
+  "build-depends" : [ ],
+  "test-depends"  : [ "" ],
+  "provides"      : {
+    "Text::LibCSV": "lib/Text/LibCSV.pm6" 
+  },
+  "resources" : [
+    "lib/libcsvwrap.so",
+    "lib/libcsvwrap.dll",
+    "lib/libcsvwrap.dylib"
+  ]
+}
