@@ -11,6 +11,7 @@ jobs:
       - run: 
           name: install build deps
           command: |
+              apt update
               apt install -y libcsv-dev build-essential
               zef install --deps-only .
       - run:
