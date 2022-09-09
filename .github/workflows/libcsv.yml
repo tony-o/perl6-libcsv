@@ -1,0 +1,8 @@
+name: Build & Test
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    image: tonyodell/rakudo-nightly:latest
+    steps:
+      - run: zef test . && zef install .
