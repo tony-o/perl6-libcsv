@@ -5,4 +5,5 @@ jobs:
     runs-on: ubuntu-latest
     container: tonyodell/rakudo-nightly:latest
     steps:
+      - run: apt update && apt install libcsv
       - run: zef test . && zef install .
