@@ -26,6 +26,26 @@ method build-options(:$CSV-STRICT = 0, :$CSV-REPALL-NL = 0, :$CSV-STRICT-FINI = 
   ($CSV-EMPTY-IS-NULL ?? 16 !! 0);
 }
 
+method csv-write-field(Str $data) {
+  csv_write_2($data, $data.chars, $!quote.ord);
+}
+
+method csv-write(@data) {
+  my Str $x = '';
+  for @data -> @ds {
+    my $len = @ds.elems - 1;
+    my $i = 0;
+    for @ds -> $d {
+      $x ~= csv_write_2($d.Str, $d.Str.chars, $!quote.ord);
+      if $i++ < $len {
+        $x ~= $!delimiter;
+      }
+    }
+    $x ~= "\n";
+  }
+  $x;
+}
+
 method read-file(Str $file-path, Supplier :$on-data?, Supplier :$on-record?, :$return-all? is copy, :$has-headers? = $!has-headers) {
   $return-all = $return-all.so || (!$on-data.defined && !$on-record.defined);
   my @data;
@@ -98,13 +118,31 @@ sub on-record (Int $len, OpaquePointer $data) {
   @*ROW = ();
 }
 
-multi sub csv-read-file (IO $file, uint8 :$parser-options = 0, uint16 :$quote = ','.ord, uint16 :$delim = '"', :$data = &on-data, :$record = &on-record) is export(:csv-read-file) {
+sub csv-write-field(Str $data, Str :$quote where *.ords.elems == 1 = '"') is export {
+  csv_write_2($data, $data.chars, $quote.ord);
+}
+
+sub csv-write(@data, Str :$quote where *.ords.elems == 1 = '"', Str :$delimiter = ',') is export {
+  my Str $x = '';
+  for @data -> @ds {
+    my $len = @ds.elems - 1;
+    my $i = 0;
+    for @ds -> $d {
+      $x ~= csv_write_2($d.Str, $d.Str.chars, $quote.ord);
+      if $i++ < $len {
+        $x ~= $delimiter;
+      }
+    }
+    $x ~= "\n";
+  }
+  $x;
+}
+
+multi sub csv-read-file (IO $file, uint8 :$parser-options = 0, uint16 :$quote = '"'.ord, uint16 :$delim = ',', :$data = &on-data, :$record = &on-record) is export(:csv-read-file) {
   my $path = $file.absolute;
   my @*DATA;
   my @*ROW;
   csv_read_file($path, $parser-options, $quote, $delim, $data, $record);
-  say @*DATA.perl;
-  say 'done';
 }
 
 multi sub csv-read-file (Str $file) is export(:csv-read-file) {

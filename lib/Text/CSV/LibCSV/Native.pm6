@@ -9,6 +9,12 @@ sub libcsvwrap is export {
   }
 }
 
+sub csv_write_2(
+  Str $data,
+  int8 $data_len,
+  uint16 $quote,
+) returns Str is native(&libcsvwrap) is export { * };
+
 sub csv_read_file(
   Str $filepath,
   uint8 $options,
