@@ -3,7 +3,7 @@
   "perl"          : "6.*",
   "name"          : "Text::CSV::LibCSV",
   "tags"          : [ "csv", "parser", "native" ], 
-  "version"       : "0.0.2",
+  "version"       : "0.0.3",
   "auth"          : "zef:tony-o",
   "description"   : "libcsv wrapper + Parser",
   "source-url"    : "git://github.com/tony-o/perl6-libcsv.git",
