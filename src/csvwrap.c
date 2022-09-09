@@ -1,7 +1,7 @@
 #include <csv.h>
 #include <stdio.h>
 
-struct csv_parser* csv_create_parser_x(options) {
+struct csv_parser* csv_create_parser_x(int options) {
   struct csv_parser *p = (struct csv_parser*)malloc(sizeof(struct csv_parser));
   csv_init(p, options);
   return p;
@@ -54,6 +54,12 @@ int csv_stream_file_x (
 
   fclose(in);
   return 0;
+}
+
+char* csv_write_2(char* data, int data_len, char quote) {
+  char *buf = calloc((data_len * 2) + 1, sizeof(char));
+  csv_write2(buf, data_len*2+2, data, data_len, quote);
+  return buf;
 }
 
 int csv_read_file(
